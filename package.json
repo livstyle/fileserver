@@ -1,0 +1,32 @@
+{
+  "name": "fileserver",
+  "version": "1.0.0",
+  "description": "file up and download",
+  "main": "dist/main.js",
+  "scripts": {
+    "test": "pnpm run test",
+    "swc": "swc src -d dist --copy-files --include-dotfiles",
+    "build": "pnpm run swc",
+    "start": "pnpm run start-pnpm",
+    "start-pnpm": "node --experimental-specifier-resolution=node ."
+  },
+  "keywords": [
+    "file",
+    "upload",
+    "and",
+    "download"
+  ],
+  "author": "jiangkun",
+  "license": "ISC",
+  "dependencies": {
+    "exceljs": "^4.3.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@swc/cli": "^0.1.49",
+    "@swc/core": "^1.2.85",
+    "@types/express": "^4.17.13",
+    "@types/node": "^16.9.1"
+  },
+  "type": "module"
+}
