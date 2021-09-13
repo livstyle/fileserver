@@ -17,9 +17,9 @@ export class Api {
         };
         const workbook = new ExcelJS.stream.xlsx.WorkbookWriter(options);
 
-        const worksheet = workbook.addWorksheet('月度汇总', { views: [{ state: 'frozen', xSplit: 1, ySplit: 3 }] });
+        const worksheet = workbook.addWorksheet('数据流', { views: [{ state: 'frozen', xSplit: 1, ySplit: 3 }] });
 
-        let filename = "月度汇总表";
+        let filename = "数据流表";
         res.setHeader('Connection', 'keep-alive');
         res.setHeader('Content-Type', 'application/octet-stream');
         res.setHeader("Content-Disposition", "attachment; filename=" + encodeURIComponent(filename) + ".xlsx");
