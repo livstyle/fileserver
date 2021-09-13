@@ -4,7 +4,7 @@
   "description": "file up and download",
   "main": "dist/main.js",
   "scripts": {
-    "test": "pnpm run test",
+    "local": "pnpm run build && pnpm run start-pnpm",
     "swc": "swc src -d dist --copy-files --include-dotfiles",
     "build": "pnpm run swc",
     "start": "pnpm run start-pnpm",
