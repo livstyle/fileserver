@@ -1,18 +1,17 @@
 import ExcelJS from 'exceljs';
 import { MRoute } from "../common/decorators/MRoute";
 
-export class Api {
+export class ApiController {
     constructor() {}
 
-    @MRoute('/api/get')
+    @MRoute('/api/geta')
     getA(req: any, res: any) {
         res.status(200).json({ data: 'asasa', status: '0' });
     }
 
-    @MRoute('/api/file')
+    @MRoute('/api/files')
     async getExcel(req: any, res: any) {
         const options = {
-            stream: res, // 若这里不配置则需要使用workbook.stream.pipe(res); 写入到res流中
             useStyles: true,
             useSharedStrings: true
         };
@@ -21,22 +20,22 @@ export class Api {
         const worksheet = workbook.addWorksheet('数据流', { views: [{ state: 'frozen', xSplit: 1, ySplit: 3 }] });
 
         let filename = "数据流表";
-        res.setHeader('Connection', 'keep-alive'); // 保持链接一直在
-        res.setHeader('Content-Type', 'application/octet-stream'); // 文件类型为文件流形式
+        res.setHeader('Connection', 'keep-alive');
+        res.setHeader('Content-Type', 'application/octet-stream');
         res.setHeader("Content-Disposition", "attachment; filename=" + encodeURIComponent(filename) + ".xlsx");
-        res.flushHeaders(); // 先将headers返回
+        res.flushHeaders();
 
         // @ts-ignore
-        // workbook.stream.pipe(res); // 使用管道流将xlsx流数据直接写入response流中
+        workbook.stream.pipe(res);
 
-        for (let index = 0; index < 1000000; index++) {
+        for (let index = 0; index < 500000; index++) {
             const row = [];
             for (let i = 0; i < 20; i++) {
                 row.push(i);
             }
-            worksheet.addRow(row).commit(); // commit() 提交流数据
+            worksheet.addRow(row).commit();
         }
-        workbook.commit(); // 提交整个Excel工作簿
+        await workbook.commit();
 
     }
 
